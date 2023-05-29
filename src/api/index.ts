@@ -21,3 +21,4 @@ export {
 } from './acl/permission'
 
 export { getStatics } from './statics'
+export { findByParentId } from './base/dict'

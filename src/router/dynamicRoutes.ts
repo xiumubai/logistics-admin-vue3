@@ -33,13 +33,13 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: '/base/dict/list',
         name: 'Dict',
-        component: () => import('@/views/base/dict/index.vue.vue'),
+        component: () => import('@/views/base/dict/index.vue'),
         meta: { title: '数据字典', icon: 'Grid' },
       },
       {
         path: '/base/shipperInfo/list',
         name: 'ShipperInfo',
-        component: () => import('@/views/base/shipperInfo/index.vue.vue'),
+        component: () => import('@/views/base/shipperInfo/index.vue'),
         meta: { title: '货主管理', icon: 'Grid' },
       },
       {
