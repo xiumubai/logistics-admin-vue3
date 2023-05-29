@@ -19,3 +19,5 @@ export {
   addPermission,
   updatePermission,
 } from './acl/permission'
+
+export { getStatics } from './statics'
