@@ -21,4 +21,5 @@ export {
 } from './acl/permission'
 
 export { getStatics } from './statics'
-export { findByParentId } from './base/dict'
+export { findByParentId, findByProvince } from './base/dict'
+export { getShipperList, deleteShipperById } from './base/shipper'

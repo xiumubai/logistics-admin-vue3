@@ -105,7 +105,7 @@ const initParam = reactive({})
 // 处理返回的数据格式
 const dataCallback = (data: any) => {
   return {
-    list: data?.records,
+    list: data?.records, // 封装的table默认使用的是list，后端返回的是records
     total: data?.total,
   }
 }
