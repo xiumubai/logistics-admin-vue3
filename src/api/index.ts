@@ -22,4 +22,9 @@ export {
 
 export { getStatics } from './statics'
 export { findByParentId, findByProvince } from './base/dict'
-export { getShipperList, deleteShipperById } from './base/shipper'
+export {
+  getShipperList,
+  deleteShipperById,
+  addShipper,
+  updateShipper,
+} from './base/shipper'

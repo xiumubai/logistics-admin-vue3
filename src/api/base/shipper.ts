@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-05-29 14:27:58
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-05-30 14:50:13
+ * @LastEditTime: 2023-05-30 15:58:09
  * @Description: 货主管理
  */
 import http from '@/utils/http'
@@ -31,4 +31,20 @@ export function getShipperList(params: Shipper.ShipperListParams) {
  */
 export function deleteShipperById(id: string) {
   return http.delete<PageRes<any>>(`${api_name}/remove/${id}`)
+}
+
+/**
+ * @description 新增用户
+ * @returns {<PageRes<any>>}
+ */
+export function addShipper(params: Shipper.EidtShipperParams) {
+  return http.post<PageRes<any>>(`${api_name}/save`, params)
+}
+
+/**
+ * @description: 编辑用户
+ * @returns {<PageRes<any>>}
+ */
+export function updateShipper(params: Shipper.EidtShipperParams) {
+  return http.put<PageRes<any>>(`${api_name}/update`, params)
 }

@@ -18,6 +18,19 @@ export namespace Shipper {
     cityCode?: number
     areaCode?: number
   }
+
+  export interface EidtShipperParams {
+    address: string
+    areaId: number
+    cityId: number
+    id?: string
+    name: string
+    phone: string
+    provinceId: number
+    remark: string
+    status?: string
+  }
+
   export interface ShipperResItem {
     address: string
     areaId: number
