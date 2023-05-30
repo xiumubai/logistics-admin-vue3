@@ -11,7 +11,7 @@
         <el-button
           type="primary"
           icon="Plus"
-          v-auth="['btn.User.add']"
+          :disabled="!BUTTONS['btn.shipperInfo.add']"
           @click="openDialog('新增')"
         >
           添加
@@ -23,7 +23,7 @@
           type="primary"
           link
           icon="Edit"
-          v-auth="['btn.User.update']"
+          :disabled="!BUTTONS['btn.shipperInfo.update']"
           @click="openDialog('编辑', scope.row)"
         >
           编辑
@@ -32,7 +32,7 @@
           type="primary"
           link
           icon="Delete"
-          v-auth="'btn.User.remove'"
+          :disabled="!BUTTONS['btn.shipperInfo.remove']"
           @click="handleDelete(scope.row)"
         >
           删除
@@ -46,6 +46,8 @@
 import { reactive, ref, onMounted } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
 import { useHandleData } from '@/hooks/useHandleData'
+import { useAuth, hasAuth } from '@/hooks/useAuth'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 import {
   getShipperList,
   deleteShipperById,
@@ -56,6 +58,7 @@ import {
 } from '@/api'
 import type { Shipper, Dict } from '@/api/base/types'
 import Dialog from './components/Dialog.vue'
+const { BUTTONS } = useAuthButtons()
 
 // 地区数据
 const dictList = reactive({
@@ -172,10 +175,16 @@ const dataCallback = (data: any) => {
 
 // 打开Dialog
 const DialogRef = ref()
-const openDialog = (
+const openDialog = async (
   title: string,
   rowData: Partial<Shipper.ShipperResItem> = {},
 ) => {
+  const isAuth =
+    title === '新增'
+      ? hasAuth('btn.shipperInfo.add')
+      : hasAuth('btn.shipperInfo.update')
+  await useAuth(isAuth)
+
   const params = {
     title: title,
     provinceList: dictList.provinceList, // 省份的数据需要单独传递
@@ -232,6 +241,7 @@ const clearArea = () => {
 
 // *根据id删除用户
 const handleDelete = async (row: Shipper.ShipperResItem) => {
+  await useAuth(hasAuth('btn.shipperInfo.remove'))
   await useHandleData(deleteShipperById, row.id, `删除${row.name}用户`)
   proTable.value?.getTableList()
 }
