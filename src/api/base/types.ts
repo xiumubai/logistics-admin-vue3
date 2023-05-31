@@ -44,3 +44,13 @@ export namespace Shipper {
     provinceName: string
   }
 }
+
+export namespace GoodsType {
+  export interface ResGoodsType {
+    children: ResGoodsType[]
+    createTime: string
+    hasChildren: boolean
+    id: number
+    name: string
+  }
+}
