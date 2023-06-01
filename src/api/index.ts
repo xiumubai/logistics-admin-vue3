@@ -1,8 +1,13 @@
 /*
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
+<<<<<<< Updated upstream
  * @LastEditors: 1547702880@@qq.com
  * @LastEditTime: 2023-06-01 15:13:20
+=======
+ * @LastEditors: gjzxlihaibo@163.com
+ * @LastEditTime: 2023-06-01 15:56:37
+>>>>>>> Stashed changes
  * @Description: 接口
  * @docs: http://139.198.152.148:8110/doc.html#/home
  */
@@ -29,6 +34,7 @@ export {
   updatePermission,
 } from './acl/permission'
 
+export { getInOrderInfoList, getAllSelectList } from './inbound/inOrder'
 export { getStatics } from './statics'
 export { findByParentId, findByDictCode } from './base/dict'
 export {
