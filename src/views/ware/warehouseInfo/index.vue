@@ -10,7 +10,7 @@
         <el-button
           type="primary"
           icon="Plus"
-          :disabled="!BUTTONS['btn.shipperInfo.add']"
+          :disabled="!BUTTONS['btn.warehouseInfo.add']"
           @click="openDialog('新增')"
         >
           添加
@@ -22,7 +22,7 @@
           type="primary"
           link
           icon="Edit"
-          :disabled="!BUTTONS['btn.shipperInfo.update']"
+          :disabled="!BUTTONS['btn.warehouseInfo.update']"
           @click="openDialog('编辑', scope.row)"
         >
           编辑
@@ -31,7 +31,7 @@
           type="primary"
           link
           icon="Delete"
-          :disabled="!BUTTONS['btn.shipperInfo.remove']"
+          :disabled="!BUTTONS['btn.warehouseInfo.remove']"
           @click="handleDelete(scope.row)"
         >
           删除
@@ -125,8 +125,8 @@ const openDialog = async (
 ) => {
   const isAuth =
     title === '新增'
-      ? hasAuth('btn.shipperInfo.add')
-      : hasAuth('btn.shipperInfo.update')
+      ? hasAuth('btn.warehouseInfo.add')
+      : hasAuth('btn.warehouseInfo.update')
   await useAuth(isAuth)
 
   const params = {
