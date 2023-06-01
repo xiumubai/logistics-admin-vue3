@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-01 14:04:31
+ * @LastEditTime: 2023-06-01 15:13:20
  * @Description: 接口
  * @docs: http://139.198.152.148:8110/doc.html#/home
  */
@@ -64,3 +64,17 @@ export {
   addStoreareaInfo,
   updateStoreareaInfo,
 } from './ware/storeareaInfo'
+
+export {
+  getStorehouseInfoList,
+  deleteStorehouseInfoById,
+  addStorehouseInfo,
+  updateStorehouseInfo,
+} from './ware/storehouseInfo'
+
+export {
+  getStoreshelfInfoList,
+  deleteStoreshelfInfoById,
+  addStoreshelfInfo,
+  updateStoreshelfInfo,
+} from './ware/storeshelfInfo'
