@@ -52,7 +52,7 @@ import {
   getShipperList,
   deleteShipperById,
   findByParentId,
-  findByProvince,
+  findByDictCode,
   addShipper,
   updateShipper,
 } from '@/api'
@@ -198,7 +198,7 @@ const openDialog = async (
 // 获取省份数据
 const getProvinceListHandle = async () => {
   try {
-    const res = await findByProvince('Province')
+    const res = await findByDictCode('Province')
     dictList.provinceList = res.data
   } catch (error) {
     console.log(error)

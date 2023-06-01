@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-03-06 17:45:41
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-03-08 15:43:29
+ * @LastEditTime: 2023-06-01 09:46:55
  * @Description: 表格多选操作
  */
 
@@ -28,8 +28,6 @@ export const useSelection = (selectId = 'id') => {
    * @return void
    */
   const selectionChange = (rowArr: any) => {
-    console.log(rowArr)
-
     rowArr.length === 0 ? (isSelected.value = false) : (isSelected.value = true)
     selectedList.value = rowArr
   }

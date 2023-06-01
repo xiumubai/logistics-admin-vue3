@@ -54,3 +54,74 @@ export namespace GoodsType {
     name: string
   }
 }
+
+export namespace GoodsInfo {
+  export interface GoodsInfoParams extends ReqPage {
+    keyword?: string
+    status?: string
+    goodsTypeId?: string
+  }
+
+  export interface EditGoodsInfoParams {
+    name: string
+    code: number
+    goodsTypeId: number
+    temperatureTypeId: number
+    volume: number
+    unitId: number
+    baseCount: number
+    barcode: number
+    brandName: string
+    inspectTypeId: number
+    saleAttr: string
+    weight: number
+    baseUnitId: number
+  }
+
+  export interface ResGoodsInfoItem {
+    barcode: string
+    baseCount: number
+    baseUnitId: number
+    baseUnitName: string
+    brandName: string
+    code: string
+    createId: number
+    createName: string
+    createTime: string
+    goodsTypeId: number
+    goodsTypeName: string
+    id: string
+    inspectTypeId: number
+    inspectTypeName: string
+    inventoryInfoList: null
+    name: string
+    saleAttr: string
+    skuId: number
+    status: number
+    temperatureTypeId: number
+    temperatureTypeName: string
+    unitId: number
+    unitName: string
+    updateId: number
+    updateName: string
+    updateTime: string
+    volume: string
+    weight: string
+  }
+}
+
+export namespace WareConfig {
+  export interface ResWareConfig {
+    createName: string | null
+    createTime: string
+    dimension: string
+    id: number
+    intervalTime: number
+    relationUrl: string
+    status: number
+    unlockTime: number
+    updateId: number
+    updateName: string
+    updateTime: string
+  }
+}

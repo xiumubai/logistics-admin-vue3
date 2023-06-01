@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-05-29 14:27:58
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-05-30 11:46:32
+ * @LastEditTime: 2023-05-31 14:29:09
  * @Description: 数据字典
  */
 import http from '@/utils/http'
@@ -20,6 +20,6 @@ export function findByParentId(parentId: number | string) {
 /**
  * 获取编码字典数据
  */
-export function findByProvince(dictCode: string) {
+export function findByDictCode(dictCode: string) {
   return http.get<Dict.DictCodeItem[]>(`${api_name}/findByDictCode/${dictCode}`)
 }

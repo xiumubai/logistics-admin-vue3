@@ -21,7 +21,7 @@
         >
           <div class="form-header">
             <div class="title">hello !</div>
-            <div class="title-tips">欢迎来到尚品汇！</div>
+            <div class="title-tips">欢迎来到仓储物流管理！</div>
           </div>
           <el-form-item prop="username">
             <el-input
