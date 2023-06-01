@@ -261,7 +261,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: '/config/wareConfig/list',
         name: 'WareConfig',
-        component: () => import('@/views/config/wareConfig/index.vue.vue'),
+        component: () => import('@/views/config/wareConfig/index.vue'),
         meta: { title: '配置列表', icon: 'Menu' },
       },
     ],
