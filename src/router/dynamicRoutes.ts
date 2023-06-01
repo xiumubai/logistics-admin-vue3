@@ -132,7 +132,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: '/inbound/inOrder/show/:id',
         name: 'InOrderShow',
-        component: () => import('@/views/inbound/inOrder/index.vue'),
+        component: () => import('@/views/inbound/inOrder/show.vue'),
         meta: {
           title: '入库单详情',
           noCache: true,
