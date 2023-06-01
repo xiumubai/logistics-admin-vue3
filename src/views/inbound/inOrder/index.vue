@@ -22,7 +22,7 @@
           type="primary"
           link
           :disabled="!BUTTONS['btn.warehouseInfo.update']"
-          @click="openDialog('编辑', scope.row)"
+          @click="goShow(scope.row.id)"
         >
           详情
         </el-button>
@@ -41,8 +41,10 @@ import {
   updateWarehouseInfo,
   getInOrderInfoList,
 } from '@/api'
+import { useRouter } from 'vue-router'
 import type { WarehouseInfo } from '@/api/ware/types'
 const { BUTTONS } = useAuthButtons()
+const router = useRouter()
 const statusList = [
   { id: 0, name: '新建' },
   { id: 1, name: '审批中' },
@@ -116,6 +118,12 @@ const dataCallback = (data: any) => {
   }
 }
 
+const goShow = (id: number) => {
+  router.push({
+    path: `/inbound/inOrder/show/${id}`,
+  })
+}
+
 // 打开Dialog
 const DialogRef = ref()
 const openDialog = async (
@@ -130,7 +138,6 @@ const openDialog = async (
 
   const params = {
     title: title,
-    provinceList: dictList.provinceList, // 省份的数据需要单独传递
     rowData: { ...rowData },
     api: title === '新增' ? addWarehouseInfo : updateWarehouseInfo,
     getTableList: proTable.value?.getTableList,
