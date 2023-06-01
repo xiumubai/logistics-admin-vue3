@@ -3,7 +3,7 @@
  * @Date: 2023-05-22 09:31:16
 <<<<<<< Updated upstream
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-01 15:13:20
+ * @LastEditTime: 2023-06-01 16:32:55
 =======
  * @LastEditors: gjzxlihaibo@163.com
  * @LastEditTime: 2023-06-01 15:56:37
@@ -34,7 +34,7 @@ export {
   updatePermission,
 } from './acl/permission'
 
-export { getInOrderInfoList, getAllSelectList } from './inbound/inOrder'
+export { getInOrderInfoList } from './inbound/inOrder'
 export { getStatics } from './statics'
 export { findByParentId, findByDictCode } from './base/dict'
 export {

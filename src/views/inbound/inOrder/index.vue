@@ -31,28 +31,27 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { reactive, ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
 import { useAuth, hasAuth } from '@/hooks/useAuth'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
 import {
-  findByDictCode,
   addWarehouseInfo,
-  getAllSelectList,
+  findWarehouseInfoAll,
   updateWarehouseInfo,
   getInOrderInfoList,
 } from '@/api'
-import type { Dict } from '@/api/base/types'
 import type { WarehouseInfo } from '@/api/ware/types'
 const { BUTTONS } = useAuthButtons()
-
-// 地区数据
-const dictList = reactive({
-  // 省份数据
-  provinceList: [] as Dict.DictCodeItem[],
-  warehouseList: [] as any, // 指定仓库数据
-})
-
+const statusList = [
+  { id: 0, name: '新建' },
+  { id: 1, name: '审批中' },
+  { id: 2, name: '收货中' },
+  { id: 3, name: '上架中' },
+  { id: 4, name: '库存同步中' },
+  { id: 5, name: '完成' },
+  { id: -1, name: '审批驳回' },
+]
 // *表格配置项
 const columns: ColumnProps[] = [
   {
@@ -65,12 +64,20 @@ const columns: ColumnProps[] = [
     prop: 'warehouseId',
     isShow: false,
     label: '指定仓库',
+    enum: findWarehouseInfoAll,
+    fieldNames: { label: 'name', value: 'id' },
+    search: { el: 'select', props: { placeholder: '请选择指定仓库' } },
+  },
+  {
+    prop: 'status',
+    label: '状态',
+    isShow: false,
     search: {
       el: 'select',
       render: () => {
         return (
-          <el-select v-model={dictList.warehouseList} placeholder="请选择">
-            {dictList.provinceList?.map((item: any) => (
+          <el-select v-model={status} placeholder="请选择区" clearable>
+            {statusList.map((item) => (
               <el-option
                 key={item.id}
                 label={item.name}
@@ -130,24 +137,6 @@ const openDialog = async (
   }
   DialogRef.value.acceptParams(params)
 }
-// 获取初始数据
-const getProvinceListHandle = async () => {
-  try {
-    const res = await findByDictCode('Province')
-
-    const res2 = await getAllSelectList()
-    console.log('res', res, res2)
-    dictList.provinceList = res.data
-    dictList.warehouseList = res.data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-/* 生命周期 */
-onMounted(async () => {
-  await getProvinceListHandle()
-})
 </script>
 
 <style lang="scss" scoped></style>
