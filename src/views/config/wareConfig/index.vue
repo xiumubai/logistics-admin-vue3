@@ -57,7 +57,6 @@ const saveData = async () => {
 
 onMounted(async () => {
   const res = await getWareConfig()
-  console.log(res.data)
   wareConfig.value = res.data
 })
 </script>

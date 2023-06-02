@@ -225,7 +225,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: '/outbound/outOrder/show/:id',
         name: 'OutOrderShow',
-        component: () => import('@/views/outbound/outOrder/index.vue'),
+        component: () => import('@/views/outbound/outOrder/show.vue'),
         meta: {
           title: '出库单详情',
           noCache: true,
