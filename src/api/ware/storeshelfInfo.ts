@@ -2,14 +2,13 @@
  * @Author: 朽木白
  * @Date: 2023-05-31 10:08:58
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-01 15:12:54
+ * @LastEditTime: 2023-06-02 14:01:46
  * @Description: 货架管理
  */
 
 import http from '@/utils/http'
 import type { StoreshelfInfo } from './types'
-import type { PageRes } from '../types'
-import type { ReqPage } from '../types'
+import type { PageRes, ReqPage } from '../types'
 
 const api_name = '/admin/base/storeshelfInfo'
 
