@@ -24,7 +24,7 @@
 <script setup lang="tsx">
 import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
-import { getOutPickingTaskList, getOutPickingTaskDetail } from '@/api'
+import { getOutPickingTaskList } from '@/api'
 import Dialog from './components/Dialog.vue'
 // *表格配置项
 const columns: ColumnProps[] = [
@@ -55,7 +55,6 @@ const DialogRef = ref()
 const openDialog = async (id: string) => {
   const params = {
     id: id,
-    api: getOutPickingTaskDetail,
   }
   DialogRef.value.acceptParams(params)
 }

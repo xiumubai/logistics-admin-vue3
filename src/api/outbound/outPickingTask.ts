@@ -2,8 +2,8 @@
  * @Author: 朽木白
  * @Date: 2023-06-02 14:00:48
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-02 16:17:26
- * @Description: 出库单管理
+ * @LastEditTime: 2023-06-02 16:23:27
+ * @Description: 捡货任务
  */
 import http from '@/utils/http'
 import type { OutPickingTask } from './types'

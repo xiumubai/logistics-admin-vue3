@@ -11,35 +11,55 @@
         <el-form>
           <el-row>
             <el-col :span="8">
-              <el-form-item label="拣货任务单号">
-                {{ outPickingTask?.taskNo }}
+              <el-form-item label="出库单号">
+                {{ outOrder?.outOrderNo }}
               </el-form-item>
+              <el-form-item label="收货人">
+                {{ outOrder?.consignee }}
+              </el-form-item>
+              <el-form-item label="订单备注">
+                {{ outOrder?.orderComment }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="订单号">
+                {{ outOrder?.orderNo }}
+              </el-form-item>
+              <el-form-item label="收货人电话">
+                {{ outOrder?.consigneeTel }}
+              </el-form-item>
+              <el-form-item label="指定仓库">
+                {{ outOrder?.warehouseName }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="创建时间">
-                {{ outPickingTask?.createTime }}
+                {{ outOrder?.createTime }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="仓库">
-                {{ outPickingTask?.warehouseName }}
+              <el-form-item label="收货人地址">
+                {{ outOrder?.deliveryAddress }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
               <el-form-item label="状态">
-                {{ outPickingTask?.statusName }}
+                {{ outOrder?.statusName }}
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
       </el-form>
       <h3>货品列表</h3>
-      <el-table :data="outPickingTask?.outPickingItemList" border>
-        <el-table-column prop="goodsName" label="货物名称" width="300" />
-        <el-table-column prop="barcode" label="货物条码" width="110" />
-        <el-table-column prop="pickingCount" label="拣货个数" />
+      <el-table
+        :data="outOrder?.outOrderItemList"
+        stripe
+        border
+        style="width: 100%; margin-top: 10px"
+      >
+        <el-table-column prop="goodsName" label="货品名称" width="200" />
+        <el-table-column prop="barcode" label="货品条码" width="130" />
+        <el-table-column prop="buyCount" label="购买个数" />
         <el-table-column prop="weight" label="重量" />
         <el-table-column prop="volume" label="体积" />
         <el-table-column prop="warehouseName" label="仓库" width="130" />
-        <el-table-column prop="storehouseName" label="库位" width="150" />
+        <el-table-column prop="storehouseName" label="库位" width="180" />
         <el-table-column prop="statusName" label="状态" />
       </el-table>
     </el-card>
@@ -61,7 +81,7 @@ interface DialogProps {
 const dialogVisible = ref(false)
 
 const dialogProps = ref<DialogProps>({ id: '' })
-const outPickingTask = ref()
+const outOrder = ref()
 // 接收父组件参数
 const acceptParams = (params: DialogProps): void => {
   dialogProps.value = params
@@ -71,7 +91,7 @@ const acceptParams = (params: DialogProps): void => {
 
 const fetchData = async () => {
   const res = await getOutOrderDetail(dialogProps.value.id)
-  outPickingTask.value = res.data
+  outOrder.value = res.data.outOrder
 }
 
 // 暴露给父组件的方法

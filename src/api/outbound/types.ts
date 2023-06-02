@@ -174,3 +174,32 @@ export namespace OutPickingTask {
     warehouseName: string
   }
 }
+
+export namespace OutDeliverTask {
+  export interface ResOutDeliverTaskItem {
+    consignee: string
+    consigneeTel: string
+    createId: number
+    createName: string
+    createTime: string
+    deliverCount: number
+    deliverTime: string
+    deliverUser: string
+    deliverUserId: number
+    deliveryAddress: string
+    id: string
+    orderComment: string
+    outOrderId: number
+    outOrderNo: string
+    status: string
+    statusName: string
+    taskNo: string
+    trackingCompany: string
+    trackingNo: string
+    updateId: number
+    updateName: string
+    updateTime: string
+    warehouseId: number
+    warehouseName: string
+  }
+}
