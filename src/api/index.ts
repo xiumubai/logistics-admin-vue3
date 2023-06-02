@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-02 14:33:45
+ * @LastEditTime: 2023-06-02 15:43:19
  * @Description: 接口
  * @docs: http://139.198.152.148:8110/doc.html#/home
  */
@@ -82,3 +82,7 @@ export {
 export { getWareConfig, updateWareConfig } from './config/wareConfig'
 
 export { getOutOrderList, getOutOrderDetail } from './outbound/orderList'
+export {
+  getOutPickingTaskList,
+  getOutPickingTaskDetail,
+} from './outbound/outPickingTask'

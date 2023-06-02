@@ -107,3 +107,70 @@ export namespace OutOrder {
     outPickingTaskList: OutPickingTaskListItem[]
   }
 }
+
+export namespace OutPickingTask {
+  export interface ResOutPickingTaskItem {
+    createTime: string
+    id: string
+    outPickingItemList: null
+    pickingCount: number
+    pickingTime: string
+    pickingUser: string
+    pickingUserId: number
+    status: string
+    statusName: string
+    storeareaId: number
+    storehouseId: number
+    storeshelfId: number
+    storeshelfName: string | null
+    taskNo: string
+    updateId: number
+    updateName: string
+    updateTime: string
+    warehouseId: number
+    warehouseName: string
+  }
+  export interface PinkingDetailItem {
+    barcode: string
+    createName: string | null
+    createTime: string
+    goodsId: number
+    goodsName: string
+    id: string
+    outPickingId: number
+    pickingCount: number
+    status: string
+    statusName: string
+    storeareaId: number
+    storehouseId: number
+    storehouseName: string
+    storeshelfId: number
+    updateId: number
+    updateName: string
+    updateTime: string
+    volume: string
+    warehouseId: number
+    warehouseName: string
+    weight: string
+  }
+  export interface ResOutPickingDetail {
+    outPickingItemList: PinkingDetailItem[]
+    id: string
+    pickingCount: number
+    pickingTime: string
+    pickingUser: string
+    pickingUserId: number
+    status: string
+    statusName: string
+    storeareaId: number
+    storehouseId: number
+    storeshelfId: number
+    storeshelfName: string | null
+    taskNo: string
+    updateId: number
+    updateName: string
+    updateTime: string
+    warehouseId: number
+    warehouseName: string
+  }
+}
