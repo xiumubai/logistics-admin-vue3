@@ -5,13 +5,14 @@
       :dataCallback="dataCallback"
       :columns="columns"
       :requestApi="getInOrderInfoList"
+      :resetCallback="clearAll"
     >
       <template #tableHeader>
         <el-button
           type="primary"
           icon="Plus"
           :disabled="!BUTTONS['btn.warehouseInfo.add']"
-          @click="openDialog('新增')"
+          @click="openDialog"
         >
           添加
         </el-button>
@@ -28,21 +29,30 @@
         </el-button>
       </template>
     </ProTable>
+    <Dialog
+      v-if="dialogVisible"
+      :dialogVisible="dialogVisible"
+      title="新增入库预约数据"
+      @close="closeHandler"
+      ref="DialogRef"
+      @submit="addHandler"
+      :warehouseIdList="warehouseIdList"
+    />
   </div>
 </template>
 <script setup lang="tsx">
-import { ref } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
-import { useAuth, hasAuth } from '@/hooks/useAuth'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
-import {
-  addWarehouseInfo,
-  findWarehouseInfoAll,
-  updateWarehouseInfo,
-  getInOrderInfoList,
-} from '@/api'
+import { findWarehouseInfoAll, getInOrderInfoList } from '@/api'
 import { useRouter } from 'vue-router'
-import type { WarehouseInfo } from '@/api/ware/types'
+import Dialog from './components/AddModel/index.vue'
+// 弹窗部分
+const dialogVisible = ref(false)
+const warehouseIdList = ref<any>([])
+const closeHandler = () => {
+  dialogVisible.value = false
+}
 const { BUTTONS } = useAuthButtons()
 const router = useRouter()
 const statusList = [
@@ -54,6 +64,13 @@ const statusList = [
   { id: 5, name: '完成' },
   { id: -1, name: '审批驳回' },
 ]
+// 数据
+const dictList = reactive({
+  warehouseList: [] as any, // 指定仓库数据
+  warehouse: '',
+  timeValue: [],
+})
+
 // *表格配置项
 const columns: ColumnProps[] = [
   {
@@ -61,6 +78,25 @@ const columns: ColumnProps[] = [
     isShow: false,
     label: '相关单号',
     search: { el: 'input', props: { placeholder: '入库单号/货主订单号' } },
+  },
+  {
+    prop: 'estimatedArrivalTime',
+    isShow: false,
+    label: '预计到达',
+    search: {
+      el: 'date-picker',
+      render: () => {
+        return (
+          <el-date-picker
+            v-model={dictList.timeValue}
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+          />
+        )
+      },
+    },
   },
   {
     prop: 'warehouseId',
@@ -126,24 +162,30 @@ const goShow = (id: number) => {
 
 // 打开Dialog
 const DialogRef = ref()
-const openDialog = async (
-  title: string,
-  rowData: Partial<WarehouseInfo.ResWarehouseInfoItem> = {},
-) => {
-  const isAuth =
-    title === '新增'
-      ? hasAuth('btn.warehouseInfo.add')
-      : hasAuth('btn.warehouseInfo.update')
-  await useAuth(isAuth)
-
-  const params = {
-    title: title,
-    rowData: { ...rowData },
-    api: title === '新增' ? addWarehouseInfo : updateWarehouseInfo,
-    getTableList: proTable.value?.getTableList,
-  }
-  DialogRef.value.acceptParams(params)
+const openDialog = () => {
+  dialogVisible.value = true
 }
+// 新增确认事件
+const addHandler = (res: {
+  dataSource: Record<string, string | number>[]
+  formInline: Record<string, string | number>
+}) => {
+  console.log('res', res)
+}
+
+// 点击重置的时候，清除省/市/区的数据
+const clearAll = () => {
+  dictList.timeValue = []
+  dictList.warehouse = ''
+  dictList.warehouseList = []
+}
+
+onMounted(() => {
+  findWarehouseInfoAll().then((res) => {
+    if (res?.code !== 200) return
+    warehouseIdList.value = res.data
+  })
+})
 </script>
 
 <style lang="scss" scoped></style>

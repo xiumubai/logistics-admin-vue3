@@ -112,6 +112,12 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         meta: { title: '入库预约', icon: 'Grid' },
       },
       {
+        path: '/inbound/inOrder/show/:id',
+        name: 'InOrderShow',
+        component: () => import('@/views/inbound/inOrder/show.vue'),
+        meta: { title: '入库详情', isHide: true },
+      },
+      {
         path: '/inbound/inApproveTask/list',
         name: 'InApproveTask',
         component: () => import('@/views/inbound/inApproveTask/index.vue'),
@@ -128,17 +134,6 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         name: 'InPutawayTask',
         component: () => import('@/views/inbound/inPutawayTask/index.vue'),
         meta: { title: '上架任务', icon: 'Grid' },
-      },
-      {
-        path: '/inbound/inOrder/show/:id',
-        name: 'InOrderShow',
-        component: () => import('@/views/inbound/inOrder/show.vue'),
-        meta: {
-          title: '入库单详情',
-          noCache: true,
-          isHide: true,
-          icon: 'Grid',
-        },
       },
     ],
   },
