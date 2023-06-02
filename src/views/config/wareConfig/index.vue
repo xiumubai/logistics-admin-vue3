@@ -1,54 +1,65 @@
 <template>
   <div>
-    <el-card>
-      <div style="padding-bottom: 10px; font-weight: bold">波次配置</div>
-      <el-form
-        ref="flashPromotionForm"
-        label-width="180px"
-        size="small"
-        style="padding-right: 40px"
-      >
-        <!-- <el-form label-width="180px" size="small" style="padding-right: 40px">
+    <el-card style="margin-bottom: 16px">
+      <h2>波次配置</h2>
+      <el-form>
+        <el-form>
           <el-form-item label="波次维度">
-            <el-radio-group v-model="wareConfig?.dimension">
+            <el-radio-group v-model="wareConfig.dimension">
               <el-radio label="STORESHELF">货架</el-radio>
               <el-radio label="STOREHOUSE">库位</el-radio>
               <el-radio label="GOODS">商品</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="波次间隔时间（分钟）">
-            <el-input v-model="wareConfig?.intervalTime" />
+            <el-input v-model="wareConfig.intervalTime" />
           </el-form-item>
-        </el-form> -->
+        </el-form>
       </el-form>
     </el-card>
-    <el-card class="operate-container" shadow="never">
-      <div style="padding-bottom: 10px; font-weight: bold">关联SKU配置</div>
+    <el-card>
+      <h2>关联SKU配置</h2>
+      <el-form>
+        <el-form-item label="关联SKU分页列表URL">
+          <el-input v-model="wareConfig.relationUrl" />
+          <p>说明：</p>
+          <p>
+            1、URL格式必须包含分页参数，如：http://[域名或IP:端口]/[路径]/{page}/{pageSize}
+          </p>
+          <p>
+            2、分页返回数据对象：Result.ok(com.baomidou.mybatisplus.core.metadata.IPage)
+          </p>
+        </el-form-item>
+      </el-form>
     </el-card>
-    <br />
-    <span class="dialog-footer">
-      <!-- <el-button type="primary" @click="saveData()" size="small">
-        确 定
-      </el-button> -->
-    </span>
+    <div style="text-align: center; margin: 16px 0">
+      <el-button type="primary" @click="saveData()">确 定</el-button>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-// import type { IWareConfig } from '@/api/config/types'
-// import { ref, onMounted } from 'vue'
-// import { getWareConfig } from '@/api'
+import { ref, onMounted } from 'vue'
+import { getWareConfig, updateWareConfig } from '@/api'
+import { ElMessage } from 'element-plus'
 
-// const wareConfig: IWareConfig.ResWareConfig = ref({
-//   dimension: '',
-// })
+const wareConfig = ref<any>({
+  dimension: '',
+  intervalTime: '',
+})
 
-// const saveData = () => {}
+const saveData = async () => {
+  await updateWareConfig(wareConfig.value)
+  ElMessage({
+    type: 'success',
+    message: '修改成功',
+  })
+}
 
-// onMounted(async () => {
-//   const res = await getWareConfig()
-//   console.log(res.data)
-//   wareConfig.value = res.data
-// })
+onMounted(async () => {
+  const res = await getWareConfig()
+  console.log(res.data)
+  wareConfig.value = res.data
+})
 </script>
 
 <style lang="scss" scoped></style>

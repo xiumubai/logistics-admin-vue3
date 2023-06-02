@@ -79,4 +79,4 @@ export {
   updateStoreshelfInfo,
 } from './ware/storeshelfInfo'
 
-export { getWareConfig } from './config/wareConfig'
+export { getWareConfig, updateWareConfig } from './config/wareConfig'
