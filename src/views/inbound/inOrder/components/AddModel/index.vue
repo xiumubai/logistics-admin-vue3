@@ -3,7 +3,7 @@
  * @Autor: codeBo
  * @Date: 2023-06-01 18:05:13
  * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-02 15:54:46
+ * @LastEditTime: 2023-06-05 10:00:38
 -->
 <template>
   <el-dialog
@@ -121,7 +121,7 @@
         </template>
       </el-table-column>
       <el-table-column label="总价（元）" prop="f" />
-      <el-table-column label="Operations">
+      <el-table-column label="操作">
         <template #default="scope">
           <el-button size="small" @click="hanldDelete(scope.$index)">
             删除

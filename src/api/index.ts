@@ -2,11 +2,11 @@
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
 <<<<<<< Updated upstream
- * @LastEditors: 1547702880@@qq.com
+ * @LastEditors: gjzxlihaibo@163.com
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
- * @LastEditTime: 2023-06-05 09:19:55
+ * @LastEditTime: 2023-06-05 13:57:23
 =======
  * @LastEditTime: 2023-06-02 18:30:50
 >>>>>>> Stashed changes
@@ -52,6 +52,9 @@ export {
   getDetailList,
   findNodesList,
 } from './inbound/inOrder'
+export { getInApproveTaskList } from './inbound/inApproveTask'
+export { getInReceivingTaskList } from './inbound/inReceivingTask'
+
 export { getStatics } from './statics'
 export { findByParentId, findByDictCode } from './base/dict'
 export {
