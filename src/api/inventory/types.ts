@@ -65,3 +65,29 @@ export namespace InventoryInfo {
     warehouseName: string
   }
 }
+
+export namespace InvCounting {
+  export interface ResInvCountingItem {
+    createId: number
+    createName: string
+    createTime: string
+    id: number
+    invCountingItemList: null
+    invCountingNo: string
+    planCountingTime: string
+    reasonId: number
+    reasonName: string
+    remarks: string
+    status: string
+    statusName: string
+    storeareaId: number
+    storehouseId: number
+    storehouseName: string
+    storeshelfId: number
+    updateId: number | null
+    updateName: string | null
+    updateTime: string
+    warehouseId: number
+    warehouseName: string
+  }
+}
