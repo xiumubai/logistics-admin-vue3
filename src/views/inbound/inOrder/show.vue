@@ -2,8 +2,8 @@
  * @Description: 入库详情
  * @Autor: codeBo
  * @Date: 2023-06-01 16:51:40
- * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-05 16:31:03
+ * @LastEditors: gjzxlihaibo@163.com
+ * @LastEditTime: 2023-06-05 17:50:45
 -->
 <template>
   <div v-loading="loading">

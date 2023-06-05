@@ -90,4 +90,31 @@ export namespace InvCounting {
     warehouseId: number
     warehouseName: string
   }
+  export interface InvMoveItem {
+    id: number
+    createId: number
+    createName: string
+    updateId: number | null
+    updateName: string | null
+    createTime: string
+    updateTime: string
+    param: Record<string, unknown>
+    invMoveNo: string
+    reasonId: number
+    planMoveTime: string
+    warehouseId: number
+    storeareaId: number
+    storeshelfId: number
+    storehouseId: number
+    moveUserId: number | null
+    moveUser: string
+    moveCompleteTime: string | null
+    remarks: string
+    status: string
+    reasonName: string
+    warehouseName: string
+    storehouseName: string
+    statusName: string
+    invMoveItemList: null
+  }
 }
