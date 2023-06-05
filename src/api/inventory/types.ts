@@ -90,6 +90,33 @@ export namespace InvCounting {
     warehouseId: number
     warehouseName: string
   }
+  export interface InvMoveItem {
+    id: number
+    createId: number
+    createName: string
+    updateId: number | null
+    updateName: string | null
+    createTime: string
+    updateTime: string
+    param: Record<string, unknown>
+    invMoveNo: string
+    reasonId: number
+    planMoveTime: string
+    warehouseId: number
+    storeareaId: number
+    storeshelfId: number
+    storehouseId: number
+    moveUserId: number | null
+    moveUser: string
+    moveCompleteTime: string | null
+    remarks: string
+    status: string
+    reasonName: string
+    warehouseName: string
+    storehouseName: string
+    statusName: string
+    invMoveItemList: null
+  }
 }
 
 export namespace InvCountingTask {
@@ -116,5 +143,80 @@ export namespace InvCountingTask {
     updateName: string | null
     updateTime: string
     warehouseId: number
+  }
+}
+
+interface InvMoveItemList {
+  id: number
+  createId: number
+  createName: string
+  updateId: number | null
+  updateName: string | null
+  createTime: string
+  updateTime: string
+  param: Record<string, unknown>
+  invMoveId: number
+  goodsId: number
+  moveWarehouseId: number
+  moveStoreareaId: number
+  moveStoreshelfId: number
+  moveStorehouseId: number
+  totalCount: number | null
+  moveTotalCount: number | null
+  differenceCount: number | null
+  status: number
+  storehouseName: string
+}
+
+export namespace InvMove {
+  export interface CopyItem {
+    invMoveNo: string
+    moveCompleteTime: null
+    moveUser: string
+    moveUserId: null
+    invMoveItemList: InvMoveItemList[]
+    param: Record<string, unknown>
+    planMoveTime: string
+    reasonId: number
+    reasonName: string
+    remarks: string
+    status: string
+    statusName: string
+    storeareaId: number
+    storehouseId: number
+    storehouseName: string
+    storeshelfId: number
+    updateId: null
+    updateName: null
+    updateTime: string
+    warehouseId: number
+    warehouseName: string
+    createId: number
+    createName: string
+    createTime: string
+    id: number
+  }
+}
+
+export namespace InvMoveTask {
+  export interface MoveTaskItem {
+    id: number
+    createId: number
+    createName: string
+    updateId: number | null
+    updateName: string | null
+    createTime: string
+    updateTime: string
+    param: object
+    taskNo: string
+    invMoveNo: string
+    invMoveId: number
+    moveUserId: number
+    moveUser: string
+    moveCompleteTime: string | null
+    remarks: string | null
+    warehouseId: number
+    status: string
+    statusName: string
   }
 }

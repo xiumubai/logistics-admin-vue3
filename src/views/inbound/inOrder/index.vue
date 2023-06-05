@@ -115,7 +115,7 @@ const columns: ColumnProps[] = [
       el: 'select',
       render: () => {
         return (
-          <el-select v-model={status} placeholder="请选择区" clearable>
+          <el-select v-model={status} placeholder="请选择状态" clearable>
             {statusList.map((item) => (
               <el-option
                 key={item.id}

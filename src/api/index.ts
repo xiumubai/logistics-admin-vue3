@@ -89,6 +89,7 @@ export {
 export { getWareConfig, updateWareConfig } from './config/wareConfig'
 
 export { getOutOrderList, getOutOrderDetail } from './outbound/orderList'
+
 export {
   getOutPickingTaskList,
   getOutPickingTaskDetail,
@@ -116,3 +117,13 @@ export {
   assignInvCountingTask,
   updateInvCountingTask,
 } from './inventory/invCountingtask'
+
+export {
+  getInvMoveList,
+  delInventoryById,
+  getInventoryInfoById,
+  getInfoById,
+  findByKeyWord,
+} from './inventory/invMove'
+
+export { getInvMoveTaskList, showMoveInfoById } from './inventory/invMoveTask'

@@ -191,6 +191,17 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         meta: { title: '移库任务', icon: 'Grid' },
       },
       {
+        path: '/invMoveTask/show/:id',
+        name: 'InvMoveTaskShow',
+        component: () => import('@/views/inventory/invMoveTask/show.vue'),
+        meta: {
+          title: '移库任务详情',
+          noCache: true,
+          isHide: true,
+          icon: 'Grid',
+        },
+      },
+      {
         path: '/invMove/show/:id',
         name: 'InvMoveShow',
         component: () => import('@/views/inventory/invMove/show.vue'),
