@@ -97,5 +97,6 @@ export { getOutDeliverTaskList } from './outbound/outDeliverTask'
 
 export {
   getInventoryInfoList,
-  getInventoryInfoDetail,
+  getInvLogList,
+  updateInventory,
 } from './inventory/inventoryInfo'
