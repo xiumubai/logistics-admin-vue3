@@ -1,8 +1,5 @@
 /*
  * @Author: 朽木白
- * @Date: 2023-05-22 09:31:16
- * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-05 14:27:00
  * @Description: 接口
  * @docs: http://139.198.152.148:8110/doc.html#/home
  */
