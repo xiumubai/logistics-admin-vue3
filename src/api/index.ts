@@ -2,10 +2,10 @@
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
 <<<<<<< Updated upstream
- * @LastEditors: gjzxlihaibo@163.com
+ * @LastEditors: 1547702880@@qq.com
 <<<<<<< Updated upstream
 <<<<<<< HEAD
- * @LastEditTime: 2023-06-02 17:40:33
+ * @LastEditTime: 2023-06-05 09:19:55
 =======
  * @LastEditTime: 2023-06-02 16:40:17
 >>>>>>> Stashed changes
@@ -97,7 +97,7 @@ export {
   updateStoreshelfInfo,
 } from './ware/storeshelfInfo'
 
-export { getWareConfig } from './config/wareConfig'
+export { getWareConfig, updateWareConfig } from './config/wareConfig'
 
 export { getOutOrderList, getOutOrderDetail } from './outbound/orderList'
 export {
