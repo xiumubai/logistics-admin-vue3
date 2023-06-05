@@ -162,15 +162,9 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         meta: { title: '库内盘点', icon: 'Grid' },
       },
       {
-        path: '/invCountingTask/list',
-        name: 'InvCountingTask',
-        component: () => import('@/views/inventory/invCountingTask/index.vue'),
-        meta: { title: '盘点任务', icon: 'Grid' },
-      },
-      {
         path: '/invCounting/show/:id',
         name: 'InvCountingShow',
-        component: () => import('@/views/inventory/invCounting/index.vue'),
+        component: () => import('@/views/inventory/invCounting/show.vue'),
         meta: {
           title: '盘点单详情',
           noCache: true,
@@ -178,7 +172,12 @@ export const dynamicRoutes: RouteRecordRaw[] = [
           icon: 'Grid',
         },
       },
-
+      {
+        path: '/invCountingTask/list',
+        name: 'InvCountingTask',
+        component: () => import('@/views/inventory/invCountingTask/index.vue'),
+        meta: { title: '盘点任务', icon: 'Grid' },
+      },
       {
         path: '/invMove/list',
         name: 'InvMove',

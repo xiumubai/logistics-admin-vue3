@@ -100,3 +100,8 @@ export {
   getInvLogList,
   updateInventory,
 } from './inventory/inventoryInfo'
+
+export {
+  getInvCountingList,
+  getInvCountingDetail,
+} from './inventory/invCounting'

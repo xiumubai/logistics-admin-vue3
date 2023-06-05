@@ -2,13 +2,8 @@
  * @Description: 入库详情
  * @Autor: codeBo
  * @Date: 2023-06-01 16:51:40
-<<<<<<< Updated upstream
- * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-05 10:09:47
-=======
- * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-05 09:45:01
->>>>>>> Stashed changes
+ * @LastEditors: 1547702880@@qq.com
+ * @LastEditTime: 2023-06-05 16:31:03
 -->
 <template>
   <div v-loading="loading">
