@@ -1,3 +1,7 @@
+import type { ReqPage } from '../types'
+export interface ReqInvLog extends ReqPage {
+  goodsId: string
+}
 export namespace InventoryInfo {
   export type InventoryInfoItem = {
     availableCount: number
@@ -54,8 +58,10 @@ export namespace InventoryInfo {
     volume: string
     weight: string
   }
-
-  export interface ResInventoryInfoDetail {
-    id: string
+  export interface InventoryParams {
+    count: string
+    goodsId: number
+    warehouseId: number
+    warehouseName: string
   }
 }
