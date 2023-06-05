@@ -1,28 +1,61 @@
 export namespace InventoryInfo {
-  export interface ResInventoryInfoItem {
-    areaId: number | null
-    cityId: number | null
-    consignee: string
-    consigneeTel: string
-    createId: number | null
-    createName: string | null
+  export type InventoryInfoItem = {
+    availableCount: number
+    createId: number
+    createName: string
     createTime: string
-    deliveryAddress: string
-    id: string
-    orderComment: string
-    orderNo: string
-    outOrderItemList: null
-    outOrderNo: string
-    parentOrderNo: null
-    provinceId: number
-    status: string
-    statusName: string
-    trackingCompany: null
-    trackingNo: null
+    goodsId: number
+    goodsInfo: null
+    id: number
+    lockCount: number
+    pickingCount: number
+    saleCount: number
+    status: number
+    storeareaId: number
+    storehouseId: number
+    storehouseName: string
+    storeshelfId: number
+    totalCount: number
+    unitId: number
     updateId: number | null
     updateName: string | null
     updateTime: string
     warehouseId: number
     warehouseName: string
+    warningCount: number
+  }
+  export interface ResInventoryInfoItem {
+    barcode: string
+    baseCount: number
+    baseUnitId: number
+    baseUnitName: string
+    brandName: string
+    code: string
+    createId: number | null
+    createName: string | null
+    createTime: string
+    goodsTypeId: number
+    goodsTypeName: string
+    id: number
+    inspectTypeId: number
+    inspectTypeName: string
+    inventoryInfoList: InventoryInfoItem[]
+    name: string
+    saleAttr: string
+    skuId: number
+    status: number
+    temperatureTypeId: number
+    temperatureTypeName: string
+    unitId: number
+    unitName: string
+    updateId: number
+    updateName: string
+    updateTime: string
+    volume: string
+    weight: string
+  }
+
+  export interface ResInventoryInfoDetail {
+    id: string
   }
 }

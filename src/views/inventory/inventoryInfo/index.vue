@@ -4,7 +4,7 @@
       ref="proTable"
       :dataCallback="dataCallback"
       :columns="columns"
-      :requestApi="getOutPickingTaskList"
+      :requestApi="getInventoryInfoList"
     >
       <!-- 表格操作 -->
       <template #operation="scope">
@@ -12,9 +12,17 @@
           type="primary"
           link
           icon="View"
-          @click="openDialog(scope.row.id)"
+          @click="openDialog(scope.row, '库存详情')"
         >
-          查看
+          库存详情
+        </el-button>
+        <el-button
+          type="primary"
+          link
+          icon="View"
+          @click="openDialog(scope.row, '库存日志')"
+        >
+          库存日志
         </el-button>
       </template>
     </ProTable>
@@ -24,20 +32,25 @@
 <script setup lang="tsx">
 import { ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
-import { getOutPickingTaskList } from '@/api'
+import { getInventoryInfoList } from '@/api'
 import Dialog from './components/Dialog.vue'
 // *表格配置项
 const columns: ColumnProps[] = [
-  { type: 'index', label: '#', width: 80 },
-  { prop: 'taskNo', label: '拣货任务编号' },
-  { prop: 'warehouseName', label: '仓库' },
-  { prop: 'storeshelfName', label: '货架号' },
-  { prop: 'pickingCount', label: '拣货数量' },
-  { prop: 'pickingUser', label: '拣货人' },
-  { prop: 'pickingTime', label: '拣货时间', width: 120 },
-  { prop: 'statusName', label: '状态' },
-  { prop: 'createTime', label: '创建时间', width: 120 },
-  { prop: 'operation', label: '操作', fixed: 'right', width: 180 },
+  { type: 'index', label: '#', width: 80, fixed: 'left' },
+  { prop: 'name', label: '名称' },
+  { prop: 'skuId', label: '关联SKU' },
+  { prop: 'code', label: '品牌' },
+  { prop: 'goodsTypeName', label: '商品类型' },
+  { prop: 'saleAttr', label: '货品的销售属性' },
+  { prop: 'inspectTypeName', label: '检验类型', width: 120 },
+  { prop: 'temperatureTypeName', label: '温度类型' },
+  // { prop: 'totalCount', label: '总库存' },
+  // { prop: 'lockCount', label: '锁定库存' },
+  // { prop: 'availableCount', label: '可用库存' },
+  // { prop: 'pickingCount', label: '已拣未发货数量' },
+  // { prop: 'warningCount', label: '预警数量' },
+  // { prop: 'saleCount', label: '历史销量' },
+  { prop: 'operation', label: '操作', fixed: 'right', width: 280 },
 ]
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
@@ -52,9 +65,10 @@ const dataCallback = (data: any) => {
 }
 // 打开Dialog
 const DialogRef = ref()
-const openDialog = async (id: string) => {
+const openDialog = async (rowData: string, title: string) => {
   const params = {
-    id: id,
+    title,
+    rowData,
   }
   DialogRef.value.acceptParams(params)
 }
