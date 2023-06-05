@@ -135,7 +135,7 @@ const columns: ColumnProps[] = [
   { prop: 'warehouseName', label: '仓库' },
   { prop: 'driver', label: '司机' },
   { prop: 'driverPhone', label: '司机电话' },
-  { prop: 'expectCount', label: '预期到货数量' },
+  { prop: 'expectCount', label: '预期到货数量', width: 120 },
   {
     prop: 'statusName',
     label: '状态',

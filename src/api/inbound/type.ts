@@ -3,7 +3,7 @@
  * @Autor: codeBo
  * @Date: 2023-06-01 15:06:06
  * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-02 16:58:50
+ * @LastEditTime: 2023-06-02 18:26:12
  */
 
 export interface inApproveTaskList {
@@ -174,13 +174,17 @@ export interface InOrderReceivingRecord {
   status: string
   statusName: string
 }
-
 export namespace InOrderInfo {
   export interface detail {
     inApproveTaskList: inApproveTaskList[]
     inOrder: InOrder
     inPutawayTaskList: InOrderPutawayRecord[]
     inReceivingTaskList: InOrderReceivingRecord[]
+  }
+  export interface WarehouseNode {
+    label: string
+    value: number
+    children?: WarehouseNode[]
   }
   export interface inOrderItem {
     id: number

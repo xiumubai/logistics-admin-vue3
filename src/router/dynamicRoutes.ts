@@ -150,25 +150,25 @@ export const dynamicRoutes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: 'inventoryInfo/list',
+        path: '/inventoryInfo/list',
         name: 'InventoryInfo',
         component: () => import('@/views/inventory/inventoryInfo/index.vue'),
         meta: { title: '实时库存', icon: 'Grid' },
       },
       {
-        path: 'invCounting/list',
+        path: '/invCounting/list',
         name: 'InvCounting',
         component: () => import('@/views/inventory/invCounting/index.vue'),
         meta: { title: '库内盘点', icon: 'Grid' },
       },
       {
-        path: 'invCountingTask/list',
+        path: '/invCountingTask/list',
         name: 'InvCountingTask',
         component: () => import('@/views/inventory/invCountingTask/index.vue'),
         meta: { title: '盘点任务', icon: 'Grid' },
       },
       {
-        path: 'invCounting/show/:id',
+        path: '/invCounting/show/:id',
         name: 'InvCountingShow',
         component: () => import('@/views/inventory/invCounting/index.vue'),
         meta: {
@@ -180,19 +180,19 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       },
 
       {
-        path: 'invMove/list',
+        path: '/invMove/list',
         name: 'InvMove',
         component: () => import('@/views/inventory/invMove/index.vue'),
         meta: { title: '移库管理', icon: 'Grid' },
       },
       {
-        path: 'invMoveTask/list',
+        path: '/invMoveTask/list',
         name: 'InvMoveTask',
         component: () => import('@/views/inventory/invMoveTask/index.vue'),
         meta: { title: '移库任务', icon: 'Grid' },
       },
       {
-        path: 'invMove/show/:id',
+        path: '/invMove/show/:id',
         name: 'InvMoveShow',
         component: () => import('@/views/inventory/invMove/show.vue'),
         meta: { title: '移库详情', noCache: true, isHide: true, icon: 'Grid' },
