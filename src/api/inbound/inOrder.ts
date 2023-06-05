@@ -3,7 +3,7 @@
  * @Autor: codeBo
  * @Date: 2023-06-01 15:02:00
  * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-02 18:28:59
+ * @LastEditTime: 2023-06-05 10:05:38
  */
 import http from '@/utils/http'
 import type { InOrderInfo } from './type'
@@ -17,7 +17,7 @@ const api_nodelist = '/admin/base/warehouseInfo/findNodes'
  * 获取详情页数据
  */
 export function getDetailList(id: string) {
-  return http.get<InOrderInfo.detail>(`${api_detail}/${id}`)
+  return http.get<InOrderInfo.Detail>(`${api_detail}/${id}`)
 }
 /**
  * 获取详情页多选框树形结构
@@ -30,7 +30,7 @@ export function findNodesList() {
  */
 // InOrderInfo
 export function getInOrderInfoList(params: InOrderInfo.ReqPage) {
-  return http.get<InOrderInfo.inOrderItem[]>(
+  return http.get<InOrderInfo.InOrderItem[]>(
     `${api_name}/${params.pageNum}/${params.pageSize}`,
     { no: params.no, warehouseId: params.warehouseId },
   )

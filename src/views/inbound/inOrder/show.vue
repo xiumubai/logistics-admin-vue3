@@ -3,8 +3,8 @@
  * @Autor: codeBo
  * @Date: 2023-06-01 16:51:40
 <<<<<<< Updated upstream
- * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-02 17:49:43
+ * @LastEditors: gjzxlihaibo@163.com
+ * @LastEditTime: 2023-06-05 10:09:47
 =======
  * @LastEditors: gjzxlihaibo@163.com
  * @LastEditTime: 2023-06-05 09:45:01
@@ -189,14 +189,14 @@
 import { getDetailList, findNodesList } from '@/api'
 import { onMounted, ref } from 'vue'
 import type {
-  inApproveTaskList,
+  InApproveTaskList,
   InOrder,
   InOrderPutawayRecord,
   InOrderReceivingRecord,
   InOrderInfo,
 } from '@/api/inbound/type'
 import { useRoute } from 'vue-router'
-const approveTaskList = ref<inApproveTaskList[]>([]) // inApproveTaskList 数据
+const approveTaskList = ref<InApproveTaskList[]>([]) // inApproveTaskList 数据
 const inOrder = ref<InOrder>({} as InOrder) // inOrder 数据
 const inPutawayTaskList = ref<InOrderPutawayRecord[]>([]) // inPutawayTaskList
 const inReceivingTaskList = ref<InOrderReceivingRecord[]>([]) // inReceivingTaskList
