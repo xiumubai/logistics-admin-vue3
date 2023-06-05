@@ -13,6 +13,7 @@ export {
   batchAclUser,
   getUserRolesList,
   assignUserRoles,
+  getUserByKeyword,
 } from './acl/account'
 
 export { getRoleList, deleteRole, addRole, updateRole } from './acl/role'
@@ -104,4 +105,7 @@ export {
 export {
   getInvCountingList,
   getInvCountingDetail,
+  assignInvCounting,
 } from './inventory/invCounting'
+
+export { assignInvCountingTask } from './inventory/invCountingtask'

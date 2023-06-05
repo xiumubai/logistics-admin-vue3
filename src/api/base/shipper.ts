@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-05-29 14:27:58
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-05-30 15:58:09
+ * @LastEditTime: 2023-06-05 17:04:54
  * @Description: 货主管理
  */
 import http from '@/utils/http'

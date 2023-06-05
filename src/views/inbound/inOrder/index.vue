@@ -22,6 +22,7 @@
         <el-button
           type="primary"
           link
+          icon="View"
           :disabled="!BUTTONS['btn.warehouseInfo.update']"
           @click="goShow(scope.row.id)"
         >

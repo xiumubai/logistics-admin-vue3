@@ -90,4 +90,9 @@ export namespace InvCounting {
     warehouseId: number
     warehouseName: string
   }
+  export interface ReqAssignParams {
+    invCountingId: string
+    countingUser: string
+    countingUserId: string
+  }
 }

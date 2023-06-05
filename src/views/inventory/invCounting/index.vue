@@ -43,7 +43,7 @@
           type="primary"
           link
           icon="Top"
-          @click="handleUpdateStatus(scope.row.id, 1)"
+          @click="handleAssign(scope.row.id)"
         >
           分配
         </el-button>
@@ -58,10 +58,33 @@
       </template>
     </ProTable>
     <Drawer ref="DrawerRef" />
+    <el-dialog title="分配任务" v-model="dialogUserVisible" width="40%">
+      <el-form label-width="120px">
+        <el-form-item label="任务执行人">
+          <el-autocomplete
+            v-model="invCountingTaskFormVo.countingUser"
+            :fetch-suggestions="querySearch"
+            :trigger-on-focus="false"
+            @select="handleSelect"
+            placeholder="搜索任务执行人"
+            value-key="name"
+            style="width: 80%"
+          >
+            <template #suffix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-autocomplete>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogUserVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleAssignSave()">确 定</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="tsx">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
 import { useHandleData } from '@/hooks/useHandleData'
 import { useAuth, hasAuth } from '@/hooks/useAuth'
@@ -70,7 +93,8 @@ import { ElMessage } from 'element-plus'
 import {
   getInvCountingList,
   getGoodsNodeList,
-  updateStatus,
+  assignInvCountingTask,
+  getUserByKeyword,
   deleteGoodsById,
   addShipper,
   updateShipper,
@@ -82,7 +106,7 @@ import type { GoodsInfo } from '@/api/base/types'
 import Drawer from './components/Drawer.vue'
 const router = useRouter()
 const { BUTTONS } = useAuthButtons()
-
+const dialogUserVisible = ref(false)
 const statusList = [
   { id: 0, name: '新建' },
   { id: 1, name: '启用' },
@@ -150,6 +174,12 @@ const dataCallback = (data: any) => {
   }
 }
 
+const invCountingTaskFormVo = reactive({
+  invCountingId: '',
+  countingUser: '',
+  countingUserId: '',
+})
+
 const inspectTypeList = ref()
 const temperatureTypeList = ref()
 const unitList = ref()
@@ -188,13 +218,30 @@ const handleDelete = async (row: GoodsInfo.ResGoodsInfoItem) => {
   proTable.value?.getTableList()
 }
 
-// *上线，下线
-const handleUpdateStatus = async (id: string, status: number) => {
-  await updateStatus(id, status)
-  ElMessage.success(`${status === 1 ? '上线成功' : '下线成功'}`)
-  proTable.value?.getTableList()
+const querySearch = (queryString: string, cb: any) => {
+  getUserByKeyword(queryString).then((response) => {
+    cb(response.data)
+  })
 }
 
+const handleSelect = (item: any) => {
+  invCountingTaskFormVo.countingUserId = item.id
+  invCountingTaskFormVo.countingUser = item.name
+}
+
+// *分配任务弹窗
+const handleAssign = async (id: string) => {
+  dialogUserVisible.value = true
+  invCountingTaskFormVo.invCountingId = id
+}
+
+// *分配任务保存
+const handleAssignSave = async () => {
+  await assignInvCountingTask(invCountingTaskFormVo)
+  ElMessage.success(`分配成功`)
+  proTable.value?.getTableList()
+  dialogUserVisible.value = false
+}
 // *查看详情
 const handleView = (id: number) => {
   router.push({

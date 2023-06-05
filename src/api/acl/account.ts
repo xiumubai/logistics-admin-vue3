@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-03-03 15:58:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-03-10 16:01:47
+ * @LastEditTime: 2023-06-05 17:45:23
  * @Description: 系统账户接口
  */
 
@@ -81,4 +81,8 @@ export function getUserRolesList(userId: string) {
 export function assignUserRoles(params: AclUser.ReqAssignRoles) {
   // Post方法传递get参数的方式需要下面这么写
   return http.post<PageRes<any>>(`/admin/acl/user/doAssignRole`, params)
+}
+
+export function getUserByKeyword(keyword: string) {
+  return http.get<PageRes<any>>(`/admin/acl/user/findByKeyword/${keyword}`)
 }
