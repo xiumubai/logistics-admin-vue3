@@ -1,8 +1,25 @@
 /*
  * @Author: 朽木白
  * @Date: 2023-05-22 09:31:16
+<<<<<<< Updated upstream
  * @LastEditors: 1547702880@@qq.com
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+ * @LastEditTime: 2023-06-05 09:19:55
+=======
+ * @LastEditTime: 2023-06-02 18:30:50
+>>>>>>> Stashed changes
+=======
+ * @LastEditTime: 2023-06-02 16:40:17
+>>>>>>> Stashed changes
+=======
+ * @LastEditors: gjzxlihaibo@163.com
+ * @LastEditTime: 2023-06-01 15:56:37
+>>>>>>> Stashed changes
+=======
  * @LastEditTime: 2023-06-02 16:28:37
+>>>>>>> master
  * @Description: 接口
  * @docs: http://139.198.152.148:8110/doc.html#/home
  */
@@ -29,6 +46,12 @@ export {
   updatePermission,
 } from './acl/permission'
 
+export {
+  getInOrderInfoList,
+  getFindKeyWordList,
+  getDetailList,
+  findNodesList,
+} from './inbound/inOrder'
 export { getStatics } from './statics'
 export { findByParentId, findByDictCode } from './base/dict'
 export {
