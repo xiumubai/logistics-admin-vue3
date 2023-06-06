@@ -92,14 +92,13 @@ import { useAuthButtons } from '@/hooks/useAuthButtons'
 import { ElMessage } from 'element-plus'
 import {
   getInvCountingList,
-  getGoodsNodeList,
+  findNodesList,
   assignInvCountingTask,
   getUserByKeyword,
   removeInvCounting,
-  addShipper,
-  updateShipper,
+  saveInvCounting,
+  updateInvCounting,
   findByDictCode,
-  getConfig,
 } from '@/api'
 import { useRouter } from 'vue-router'
 import type { GoodsInfo } from '@/api/base/types'
@@ -112,9 +111,6 @@ const statusList = [
   { id: 1, name: '启用' },
   { id: -1, name: '下线' },
 ]
-
-const goodsTypeList = ref()
-
 // *表格配置项
 const columns: ColumnProps[] = [
   { type: 'index', label: '#', width: 80 },
@@ -122,16 +118,6 @@ const columns: ColumnProps[] = [
     prop: 'invCountingNo',
     label: '盘点单号',
     search: { el: 'input', props: { placeholder: '盘点单号' } },
-  },
-  {
-    prop: 'goodsTypeId',
-    label: '商品类型',
-    isShow: false,
-    enum: getGoodsNodeList,
-    search: {
-      el: 'cascader',
-      props: { placeholder: '请选择商品类型' },
-    },
   },
   {
     prop: 'status',
@@ -179,11 +165,8 @@ const invCountingTaskFormVo = reactive({
   countingUser: '',
   countingUserId: '',
 })
-
-const inspectTypeList = ref()
-const temperatureTypeList = ref()
-const unitList = ref()
-const api_url = ref()
+const reasonList = ref()
+const wareList = ref()
 // 打开Dialog
 const DrawerRef = ref()
 const openDialog = async (
@@ -199,13 +182,10 @@ const openDialog = async (
 
   const params = {
     title: title,
-    goodsTypeList: goodsTypeList.value,
-    inspectTypeList: inspectTypeList.value,
-    temperatureTypeList: temperatureTypeList.value,
-    unitList: unitList.value,
+    reasonList: reasonList.value,
+    wareList: wareList.value,
     rowData: { ...rowData },
-    api_url: api_url.value,
-    api: title === '新增' ? addShipper : updateShipper,
+    api: title === '新增' ? saveInvCounting : updateInvCounting,
     getTableList: proTable.value?.getTableList,
   }
   DrawerRef.value.acceptParams(params)
@@ -249,36 +229,19 @@ const handleView = (id: number) => {
   })
 }
 
-// 获取货物类型数据
-const featchGoodsTypeList = async () => {
-  const res = await getGoodsNodeList()
-  goodsTypeList.value = res.data
-}
-
 // 初始化原始数据
 const init = () => {
-  // 检验类型
-  findByDictCode('InspectType').then((res) => {
-    inspectTypeList.value = res.data
+  findByDictCode('Reason').then((res) => {
+    reasonList.value = res.data
   })
-  // 温度类型
-  findByDictCode('TemperatureType').then((res) => {
-    temperatureTypeList.value = res.data
-  })
-  // 单位
-  findByDictCode('Unit').then((res) => {
-    unitList.value = res.data
-  })
-  // 获取接口路径
-  getConfig().then((res) => {
-    api_url.value = res.data?.relationUrl
+  findNodesList().then((res) => {
+    wareList.value = res.data
   })
 }
 
 /* 生命周期 */
 onMounted(() => {
   init()
-  featchGoodsTypeList()
 })
 </script>
 

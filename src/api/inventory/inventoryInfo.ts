@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-05 15:33:18
+ * @LastEditTime: 2023-06-06 15:10:32
  * @Description: 实时库存
  */
 
@@ -46,5 +46,11 @@ export function updateInventory(params: InventoryInfo.InventoryParams) {
   return http.post<PageRes<any>>(
     `${api_name}/inventoryInfo/updateInventory`,
     params,
+  )
+}
+
+export function findByStorehouseId(storehouseId: string) {
+  return http.get<PageRes<any>>(
+    `${api_name}/inventoryInfo/findByStorehouseId/${storehouseId}`,
   )
 }

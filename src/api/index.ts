@@ -100,12 +100,15 @@ export {
   getInventoryInfoList,
   getInvLogList,
   updateInventory,
+  findByStorehouseId,
 } from './inventory/inventoryInfo'
 
 export {
   getInvCountingList,
   getInvCountingDetail,
   removeInvCounting,
+  saveInvCounting,
+  updateInvCounting,
 } from './inventory/invCounting'
 
 export {

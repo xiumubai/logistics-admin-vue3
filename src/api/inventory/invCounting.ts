@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-06 10:58:31
+ * @LastEditTime: 2023-06-06 15:15:18
  * @Description: 实时库存
  */
 
@@ -38,4 +38,12 @@ export function getInvCountingDetail(id: string) {
  */
 export function removeInvCounting(id: string) {
   return http.delete<any>(`${api_name}/remove/${id}`)
+}
+
+export function saveInvCounting(data: any) {
+  return http.post<any>(`${api_name}/save`, data)
+}
+
+export function updateInvCounting(data: any) {
+  return http.post<any>(`${api_name}/update`, data)
 }

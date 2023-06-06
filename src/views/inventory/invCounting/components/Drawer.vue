@@ -3,7 +3,7 @@
     v-model="drawerVisible"
     :title="dialogProps.title"
     :destroy-on-close="true"
-    size="600px"
+    size="60%"
   >
     <el-form
       ref="ruleFormRef"
@@ -12,139 +12,115 @@
       :rules="rules"
       :model="{ ...dialogProps.rowData, name, goodsTypeId }"
     >
-      <el-form-item label="货品名称" prop="name">
-        <el-input
-          type="textarea"
-          :disabled="true"
-          v-model="name"
-          placeholder="请填写货品名称"
-          clearable
-        ></el-input>
-        <el-button
-          type="primary"
-          size="small"
-          style="margin-top: 12px"
-          @click="showSkuData()"
-        >
-          选择SKU
-        </el-button>
-      </el-form-item>
-      <el-form-item label="商品编码" prop="code">
-        <el-input
-          v-model="dialogProps.rowData!.code"
-          placeholder="请填写商品编号"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="商品类型" prop="goodsTypeId">
-        <el-cascader
-          v-model="goodsTypeId"
-          :options="dialogProps.goodsTypeList"
-          style="width: 100%"
-        ></el-cascader>
-      </el-form-item>
-      <el-form-item label="温度类型" prop="temperatureTypeId">
-        <el-select
-          v-model="dialogProps.rowData!.temperatureTypeId"
-          placeholder="请选择温度类型"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in dialogProps.temperatureTypeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="体积">
-        <el-input v-model="dialogProps.rowData!.volume" />
-      </el-form-item>
-      <el-form-item label="单位" prop="unitId">
-        <el-select
-          v-model="dialogProps.rowData!.unitId"
-          placeholder="请选择单位"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in dialogProps.unitList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="拆零数量" prop="baseCount">
-        <el-input v-model="dialogProps.rowData!.baseCount" />
-      </el-form-item>
-      <el-form-item label="条码" prop="barcode">
-        <el-input v-model="dialogProps.rowData!.barcode" />
-      </el-form-item>
-      <el-form-item label="品牌" prop="brandName">
-        <el-input v-model="dialogProps.rowData!.brandName" />
-      </el-form-item>
-      <el-form-item label="检验类型" prop="inspectTypeId">
-        <el-select
-          v-model="dialogProps.rowData!.inspectTypeId"
-          placeholder="请选择检验类型"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in dialogProps.inspectTypeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="销售属性" prop="saleAttr">
-        <el-input v-model="dialogProps.rowData!.saleAttr" />
-      </el-form-item>
-      <el-form-item label="重量" prop="weight">
-        <el-input v-model="dialogProps.rowData!.weight" />
-      </el-form-item>
-      <el-form-item label="拆零最小单位" width="100px" prop="baseUnitId">
-        <el-select
-          v-model="dialogProps.rowData!.baseUnitId"
-          placeholder="请选择单位"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in dialogProps.unitList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </el-form-item>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="盘点原因" prop="reasonId">
+            <el-select
+              v-model="invCounting.reasonId"
+              placeholder="请选择盘点原因"
+              style="width: 90%"
+            >
+              <el-option
+                v-for="item in dialogProps?.reasonList"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="选择库位" prop="wareIds">
+            <el-cascader
+              v-model="invCounting.wareIds"
+              :options="dialogProps?.wareList"
+              @change="queryDate"
+              style="width: 90%"
+            ></el-cascader>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="计划盘点时间" prop="planCountingTime">
+            <el-date-picker
+              style="width: 90%"
+              v-model="invCounting.planCountingTime"
+              type="datetime"
+              placeholder="选择计划盘点时间"
+              value-format="yyyy-MM-dd HH:mm:ss"
+            />
+          </el-form-item>
+          <el-form-item label="备注">
+            <el-input v-model="invCounting.remarks" style="width: 90%" />
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
+    <h3>货品列表</h3>
+    <el-table
+      ref="table"
+      v-loading="listLoading"
+      :data="inventoryInfoList"
+      stripe
+      border
+      style="width: 100%; margin-top: 10px"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" width="55" />
+
+      <el-table-column label="序号" width="70" align="center">
+        <template v-slot="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="goodsInfo.name" label="货品名称" width="220" />
+      <el-table-column prop="goodsInfo.code" label="商品编码" width="100" />
+      <el-table-column prop="goodsInfo.barcode" label="商品条码" width="100" />
+      <el-table-column
+        prop="goodsInfo.goodsTypeName"
+        label="商品类型"
+        width="110px"
+      />
+      <el-table-column prop="totalCount" label="总库存" />
+      <el-table-column prop="lockCount" label="锁定库存" />
+      <el-table-column prop="availableCount" label="可用库存" />
+      <el-table-column prop="pickingCount" label="已拣未发货数量" />
+    </el-table>
     <template #footer>
       <el-button @click="drawerVisible = false">取消</el-button>
       <el-button type="primary" @click="handleSubmit" :loading="loading">
         确定
       </el-button>
     </template>
-    <Dialog ref="DialogRef" @update-name="handleChange" />
   </el-drawer>
 </template>
 
 <script setup lang="ts" name="RoleDialog">
-import type { GoodsInfo, GoodsType, Dict } from '@/api/base/types'
-import type { ReqPage } from '@/api/types'
+import type { GoodsInfo, GoodsType } from '@/api/base/types'
 import { ref, reactive } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
-import { findGoodsTypeIdList } from '@/api'
-import axios from 'axios'
-import Dialog from './Dialog.vue'
+import { findGoodsTypeIdList, findByStorehouseId } from '@/api'
+
+const defaultForm = {
+  id: '',
+  invCountingNo: '',
+  reasonId: '',
+  planCountingTime: '',
+  warehouseId: '',
+  storeareaId: '',
+  storeshelfId: '',
+  countingUserId: '',
+  countingUser: '',
+  countingCompleteTime: '',
+  remarks: '',
+  invCountingItemList: [],
+  wareIds: '',
+  storehouseId: '',
+}
 // 定义props类型
 interface DialogProps {
   title: string
-  goodsTypeList?: GoodsType.ResGoodsType[]
-  inspectTypeList?: Dict.DictCodeItem[]
-  temperatureTypeList?: Dict.DictCodeItem[]
-  unitList?: Dict.DictCodeItem[]
+  reasonList?: GoodsType.ResGoodsType[]
+  wareList?: GoodsType.ResGoodsType[]
   rowData?: GoodsInfo.ResGoodsInfoItem
-  api_url: string
   api?: (params: any) => Promise<any>
   getTableList?: () => Promise<any>
 }
@@ -166,16 +142,16 @@ const rules = reactive({
 const goodsTypeId = ref()
 const name = ref()
 const drawerVisible = ref(false)
+const inventoryInfoList = ref()
 const loading = ref<boolean>(false)
-
+const listLoading = ref(false)
+const invCounting = reactive(defaultForm)
+const multipleSelection = ref([]) // 批量选择中选择的记录列表
 // props定义:title 需要给个默认值，否则ts会提示为空值
 const dialogProps = ref<DialogProps>({
   title: '',
-  goodsTypeList: [],
-  inspectTypeList: [],
-  temperatureTypeList: [],
-  unitList: [],
-  api_url: '',
+  reasonList: [],
+  wareList: [],
 })
 
 // 接收父组件参数
@@ -193,6 +169,33 @@ const acceptParams = (params: DialogProps): void => {
   }
 }
 
+// *货品列表根据选择的库位来渲染
+const queryDate = () => {
+  invCounting.warehouseId = invCounting.wareIds[0]
+  invCounting.storeareaId = invCounting.wareIds[1]
+  invCounting.storeshelfId = invCounting.wareIds[2]
+  invCounting.storehouseId = invCounting.wareIds[3]
+  findByStorehouseId(invCounting.storehouseId).then((response) => {
+    inventoryInfoList.value = response.data
+    invCounting.invCountingItemList.forEach((it: any) => {
+      inventoryInfoList.value.forEach((item: any) => {
+        if (item.goodsId == it.goodsId) {
+          //$refs.table.toggleRowSelection(it);
+          // $nextTick(function () {
+          //   $refs.table.toggleRowSelection(it, true)
+          // })
+        }
+      })
+    })
+  })
+}
+
+const handleSelectionChange = (selection: any) => {
+  if (selection.length > 0) {
+    multipleSelection.value = selection
+  }
+}
+
 // 表单提交
 const ruleFormRef = ref<FormInstance>()
 const handleSubmit = () => {
@@ -200,11 +203,7 @@ const handleSubmit = () => {
     if (!valid) return
     try {
       loading.value = true
-      await dialogProps.value.api!({
-        ...dialogProps.value.rowData,
-        goodsTypeId: goodsTypeId.value[2],
-        name: name.value,
-      })
+      await dialogProps.value.api!(invCounting)
       ElMessage.success({ message: `${dialogProps.value.title}成功！` })
       dialogProps.value.getTableList!()
       drawerVisible.value = false
@@ -213,38 +212,6 @@ const handleSubmit = () => {
       loading.value = false
       console.log(error)
     }
-  })
-}
-
-// 打开Dialog
-const DialogRef = ref()
-const showSkuData = () => {
-  const params = {
-    api: getProductList,
-  }
-  DialogRef.value.acceptParams(params)
-}
-
-// handleChange
-const handleChange = (value: string[]) => {
-  name.value = value.join(' ')
-}
-
-const getProductList = async (params: ReqPage) => {
-  // 默认返回的接口地址是"http://sph-api.atguigu.cn/admin/product/list/1/10"
-  // 需要把分页参数替换成动态的
-  const url = dialogProps.value.api_url
-  const urlParts = url.split('/')
-  const baseUrl = urlParts.slice(0, urlParts.length - 2).join('/')
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${baseUrl}/${params.pageNum}/${params.pageSize}`)
-      .then((res) => {
-        resolve(res.data)
-      })
-      .catch((err) => {
-        reject(err)
-      })
   })
 }
 
