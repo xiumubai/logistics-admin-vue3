@@ -105,4 +105,10 @@ export {
   getInvCountingList,
   getInvCountingDetail,
 } from './inventory/invCounting'
-export { getInvMoveList, delInventoryById } from './inventory/invMove'
+export {
+  getInvMoveList,
+  delInventoryById,
+  getInventoryInfoById,
+  getInfoById,
+  findByKeyWord,
+} from './inventory/invMove'

@@ -23,7 +23,7 @@
           type="primary"
           link
           :disabled="!BUTTONS['btn.warehouseInfo.update']"
-          @click="editHandle"
+          @click="editHandle(scope.row.id)"
         >
           修改
         </el-button>
@@ -41,6 +41,7 @@
         <el-button
           type="primary"
           link
+          @click="assignUser()"
           :disabled="!BUTTONS['btn.warehouseInfo.update']"
         >
           分配任务
@@ -55,15 +56,21 @@
         </el-button>
       </template>
     </ProTable>
-    <Dialog
+    <AddModel
       v-if="dialogVisible"
       :dialogVisible="dialogVisible"
       title="新增入库预约数据"
       @close="closeHandler"
       ref="DialogRef"
       :type="dialogType"
+      :editId="editId"
       @submit="addHandler"
       :warehouseIdList="warehouseIdList"
+    />
+    <UserAllot
+      :dialogUserVisible="dialogUserVisible"
+      @close="dialogUserVisible = false"
+      @submit="dialogUserHandler"
     />
   </div>
 </template>
@@ -73,7 +80,8 @@ import { ColumnProps } from '@/components/ProTable/src/types'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
 import { findWarehouseInfoAll, getInvMoveList, delInventoryById } from '@/api'
 import { useRouter } from 'vue-router'
-import Dialog from './components/AddModel/index.vue'
+import AddModel from './components/AddModel/index.vue'
+import UserAllot from './components/UserAllot/index.vue'
 // 弹窗部分
 const dialogVisible = ref(false)
 const warehouseIdList = ref<any>([])
@@ -81,6 +89,8 @@ const closeHandler = () => {
   dialogVisible.value = false
 }
 const dialogType = ref('add') // 新增还是编辑
+const editId = ref() // 编辑的id
+const dialogUserVisible = ref(false) // 分配任务弹窗
 const { BUTTONS } = useAuthButtons()
 const router = useRouter()
 const statusList = [
@@ -183,8 +193,9 @@ const openDialog = () => {
   dialogType.value = 'add'
   dialogVisible.value = true
 }
-const editHandle = () => {
+const editHandle = (id: number) => {
   dialogType.value = 'edit'
+  editId.value = id
   dialogVisible.value = true
 }
 // 新增确认事件
@@ -205,6 +216,15 @@ const clearAll = () => {
 const delHandle = async (id: string) => {
   const res = await delInventoryById(id)
   console.log('res', res)
+}
+// 分配任务
+const assignUser = () => {
+  // 参数可以是 id 根据业务逻辑需要使用
+  dialogUserVisible.value = true
+}
+// 分配任务确认
+const dialogUserHandler = () => {
+  // 业务逻辑
 }
 onMounted(() => {
   findWarehouseInfoAll().then((res) => {

@@ -7,7 +7,6 @@
           :model="invMove"
           :rules="validateRules"
           label-width="110px"
-          size="small"
           style="padding-right: 40px"
         >
           <el-row>
@@ -53,8 +52,9 @@
         </el-form>
       </el-card>
 
-      <div>货品列表</div>
+      <div class="title_box">货品列表</div>
       <el-table
+        :v-loading="tableLoading"
         ref="table"
         :data="inventoryInfoList"
         stripe
@@ -102,10 +102,8 @@
     </div>
     <template #footer>
       <span>
-        <el-button @click="close" size="small">取 消</el-button>
-        <el-button type="primary" @click="saveOrUpdate()" size="small">
-          确 定
-        </el-button>
+        <el-button @click="close">取 消</el-button>
+        <el-button type="primary" @click="saveOrUpdate">确 定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -125,13 +123,15 @@ import type { InOrderInfo } from '@/api/inbound/type'
 import {
   findByDictCode,
   findNodesList,
-  // getInventoryInfoById,
+  getInventoryInfoById,
+  getInfoById,
 } from '@/api/index'
 interface IProps {
   dialogVisible: boolean
   title: string
   warehouseIdList: any
   type: string // edit or add
+  editId?: number
 }
 const props = defineProps<IProps>()
 const visible = computed(() => props.dialogVisible)
@@ -139,7 +139,24 @@ const emit = defineEmits(['close', 'submit'])
 const close = () => {
   emit('close')
 }
-const invMove = reactive({
+interface InvMove {
+  id: string
+  invMoveNo: string
+  reasonId: string
+  planMoveTime: string
+  warehouseId: string
+  storeareaId: string
+  storeshelfId: string
+  storehouseId: string
+  moveUserId: string
+  moveUser: string
+  moveCompleteTime: string
+  remarks: string
+  wareIds: number[]
+  invMoveItemList: Record<string, unknown>[] // 根据实际数据结构指定正确的类型
+}
+
+const invMove = ref<InvMove>({
   id: '',
   invMoveNo: '',
   reasonId: '',
@@ -158,7 +175,9 @@ const invMove = reactive({
 const loading = ref(true)
 const reasonList = ref<Dict.DictCodeItem[]>([]) // 移库原因字典值
 const wareList = ref<InOrderInfo.WarehouseNode[]>([]) // 树形结构
-const inventoryInfoList = ref([]) // 表格数据
+const inventoryInfoList = ref<any>([]) // 表格数据
+const selectList = ref([]) // 多选的数据
+const tableLoading = ref(false)
 const validateRules = reactive<FormRules>({
   reasonId: [{ required: true, trigger: 'blur', message: '必须选择' }],
   planMoveTime: [{ required: true, trigger: 'blur', message: '必须选择' }],
@@ -166,24 +185,56 @@ const validateRules = reactive<FormRules>({
 })
 // 选择库位
 const queryDate = () => {
-  console.log('invMove', invMove)
+  console.log('invMove', invMove.value.wareIds.at(-1))
+  const currentId = invMove.value.wareIds.at(-1) as unknown as number
+  queryList(currentId)
 }
 // 确定
 const saveOrUpdate = () => {
-  emit('submit')
+  emit('submit', { invMove, selectList })
 }
 // 多选
 const handleSelectionChange = (v: any) => {
+  selectList.value = v
   console.log('v', v)
 }
+// 点击一行的时候触发
 const cellclick = (s: any) => {
   console.log('s', s)
+}
+// 获取表格中的数据
+const queryList = async (id: number) => {
+  tableLoading.value = true
+  const res = await getInventoryInfoById(id)
+  inventoryInfoList.value = res.data
+  tableLoading.value = false
+  return Promise.resolve()
 }
 onMounted(async () => {
   const reason = await findByDictCode('Reason')
   reasonList.value = reason.data
   const nodeList = await findNodesList()
   wareList.value = nodeList.data
+  if (props.type === 'edit' && props.editId) {
+    const info = await getInfoById(props.editId)
+    console.log('props', props.type, props.editId, info)
+    const { data } = info
+    const currentObj = Object.assign(data, {
+      wareIds: [
+        data.warehouseId,
+        data.storeareaId,
+        data.storeshelfId,
+        data.storehouseId,
+      ],
+    })
+    invMove.value = currentObj as unknown as InvMove
+    await queryList(data.storehouseId)
+  }
   loading.value = false
 })
 </script>
+<style lang="scss">
+.title_box {
+  margin-top: 10px;
+}
+</style>
