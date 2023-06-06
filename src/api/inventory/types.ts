@@ -90,9 +90,31 @@ export namespace InvCounting {
     warehouseId: number
     warehouseName: string
   }
+}
+
+export namespace InvCountingTask {
   export interface ReqAssignParams {
     invCountingId: string
     countingUser: string
     countingUserId: string
+  }
+  export interface ResInvCountingTaskItem {
+    countingCompleteTime: string | null
+    countingUser: string
+    countingUserId: number
+    createId: number
+    createName: string
+    createTime: string
+    id: number
+    invCountingId: number
+    invCountingNo: string
+    remarks: string | null
+    status: string
+    statusName: string
+    taskNo: string
+    updateId: number | null
+    updateName: string | null
+    updateTime: string
+    warehouseId: number
   }
 }

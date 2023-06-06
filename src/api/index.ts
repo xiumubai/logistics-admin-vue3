@@ -105,7 +105,10 @@ export {
 export {
   getInvCountingList,
   getInvCountingDetail,
-  assignInvCounting,
 } from './inventory/invCounting'
 
-export { assignInvCountingTask } from './inventory/invCountingtask'
+export {
+  getInvCountingTaskList,
+  assignInvCountingTask,
+  updateInvCountingTask,
+} from './inventory/invCountingtask'
