@@ -153,6 +153,7 @@ interface ProTableProps extends Partial<Omit<TableProps<any>, 'data'>> {
   border?: boolean
   toolButton?: boolean
   selectId?: string
+  requestAuto?: boolean
   searchCol?: number | Record<BreakPoint, number>
   resetCallback?: () => void
 }
@@ -165,6 +166,7 @@ const props = withDefaults(defineProps<ProTableProps>(), {
   border: true,
   toolButton: true,
   selectId: 'id',
+  requestAuto: true,
   searchCol: () => ({ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }),
   resetCallback: () => ({}),
 })
@@ -224,6 +226,9 @@ watch(
   },
   { deep: true },
 )
+
+// 初始化请求
+// onMounted(() => props.requestAuto && getTableList())
 //* --------------------表格多选-----------------------
 
 // 表格多选 Hooks

@@ -2,24 +2,35 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-06 17:02:28
+ * @LastEditTime: 2023-06-07 16:26:07
  * @Description: 实时库存
  */
 
 import http from '@/utils/http'
 import type { InvCountingTask } from './types'
-import type { ReqPage } from '../types'
 import { PageRes } from '../types'
 
 const api_name = '/admin/inventory/invCountingTask'
 
 /**
  * 获取分页列表
+ * createTimeBegin: 2023-06-06 00:00:00
+ * createTimeEnd: 2023-06-07 00:00:00
  */
 // InvCountingTask
-export function getInvCountingTaskList(params: ReqPage) {
+export function getInvCountingTaskList(params: InvCountingTask.TaskParams) {
+  const createTimeBegin =
+    params.createTime && params.createTime.length > 0 && params.createTime[0]
+  const createTimeEnd =
+    params.createTime && params.createTime.length > 0 && params.createTime[1]
   return http.get<InvCountingTask.ResInvCountingTaskItem[]>(
     `${api_name}/${params.pageNum}/${params.pageSize}`,
+    {
+      no: params.no,
+      status: params.status,
+      createTimeBegin,
+      createTimeEnd,
+    },
   )
 }
 

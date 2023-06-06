@@ -69,6 +69,7 @@ export const useTable = (
         initParam,
         isPageable ? pageParam.value : {},
       )
+
       let { data } = await api(state.totalParam)
       state.loading = false
       // 修改后端返回的数据

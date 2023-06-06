@@ -62,8 +62,8 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { ref, onMounted } from 'vue'
-import { ColumnProps } from '@/components/ProTable/src/types'
+import { ref, computed, onMounted } from 'vue'
+import { ColumnProps, EnumProps } from '@/components/ProTable/src/types'
 import { useHandleData } from '@/hooks/useHandleData'
 import { useAuth, hasAuth } from '@/hooks/useAuth'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
@@ -110,27 +110,6 @@ const columns: ColumnProps[] = [
       props: { placeholder: '请选择商品类型' },
     },
   },
-  {
-    prop: 'status',
-    label: '状态',
-    isShow: false,
-    search: {
-      el: 'select',
-      render: () => {
-        return (
-          <el-select v-model={status} placeholder="请选择区" clearable>
-            {statusList.map((item) => (
-              <el-option
-                key={item.id}
-                label={item.name}
-                value={item.id}
-              ></el-option>
-            ))}
-          </el-select>
-        )
-      },
-    },
-  },
   { prop: 'name', label: '名称' },
   { prop: 'skuId', label: '关联SKU', width: 100 },
   { prop: 'code', label: '商品编码', width: 100 },
@@ -149,6 +128,13 @@ const columns: ColumnProps[] = [
           {row.status === 0 ? '新建' : row.status == 1 ? '启用' : '下线'}
         </el-tag>
       )
+    },
+    enum: computed(() => {
+      return statusList || []
+    }) as unknown as EnumProps[],
+    fieldNames: { label: 'name', value: 'id' },
+    search: {
+      el: 'select',
     },
   },
   { prop: 'createTime', label: '创建时间', width: 100 },

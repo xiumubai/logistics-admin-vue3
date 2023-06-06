@@ -31,35 +31,56 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { ref, onMounted } from 'vue'
-import { ColumnProps } from '@/components/ProTable/src/types'
-import {
-  getInvCountingTaskList,
-  getGoodsNodeList,
-  findByDictCode,
-  getConfig,
-} from '@/api'
+import { ref, computed } from 'vue'
+import { ColumnProps, EnumProps } from '@/components/ProTable/src/types'
+import { getInvCountingTaskList } from '@/api'
 import { useRouter } from 'vue-router'
 import Dialog from './components/Dialog.vue'
 const router = useRouter()
-// const statusList = [
-//   { id: 0, name: '新建' },
-//   { id: 1, name: '启用' },
-//   { id: -1, name: '下线' },
-// ]
-
-const goodsTypeList = ref()
+const statusList = [
+  { id: 0, name: '待处理' },
+  { id: 1, name: '完成' },
+]
 
 // *表格配置项
 const columns: ColumnProps[] = [
   { type: 'index', label: '#', width: 80 },
+  {
+    prop: 'no',
+    label: '单号',
+    isShow: false,
+    search: { el: 'input', props: { placeholder: '任务单号/盘点单号' } },
+  },
+  {
+    prop: 'status',
+    label: '状态',
+    isShow: false,
+    enum: computed(() => {
+      return statusList || []
+    }) as unknown as EnumProps[],
+    fieldNames: { label: 'name', value: 'id' },
+    search: {
+      el: 'select',
+    },
+  },
   { prop: 'taskNo', label: '任务编号' },
-  { prop: 'invCountingNo', label: '盘点单号', width: 120 },
+  { prop: 'invCountingNo', label: '盘点单号' },
   { prop: 'countingUser', label: '任务执行人', width: 100 },
-  { prop: 'countingCompleteTime', label: '操作完成时间', width: 100 },
+  { prop: 'countingCompleteTime', label: '操作完成时间', width: 120 },
   { prop: 'statusName', label: '状态', width: 100 },
   { prop: 'createName', label: '创建人', width: 100 },
-  { prop: 'createTime', label: '创建时间', width: 100 },
+  // { prop: 'createTime', label: '创建时间', width: 100 },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+    width: 180,
+    search: {
+      el: 'date-picker',
+      span: 2,
+      props: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
+      // defaultValue: ['2022-11-12 11:35:00', '2022-12-12 11:35:00'],
+    },
+  },
   { prop: 'operation', label: '操作', fixed: 'right', width: 180 },
 ]
 
@@ -74,10 +95,6 @@ const dataCallback = (data: any) => {
   }
 }
 
-const inspectTypeList = ref()
-const temperatureTypeList = ref()
-const unitList = ref()
-const api_url = ref()
 // 打开Dialog
 const DialogRef = ref()
 const openDialog = async (id: number) => {
@@ -94,38 +111,6 @@ const handleView = (id: number) => {
     path: `/invCounting/show/${id}`,
   })
 }
-
-// 获取货物类型数据
-const featchGoodsTypeList = async () => {
-  const res = await getGoodsNodeList()
-  goodsTypeList.value = res.data
-}
-
-// 初始化原始数据
-const init = () => {
-  // 检验类型
-  findByDictCode('InspectType').then((res) => {
-    inspectTypeList.value = res.data
-  })
-  // 温度类型
-  findByDictCode('TemperatureType').then((res) => {
-    temperatureTypeList.value = res.data
-  })
-  // 单位
-  findByDictCode('Unit').then((res) => {
-    unitList.value = res.data
-  })
-  // 获取接口路径
-  getConfig().then((res) => {
-    api_url.value = res.data?.relationUrl
-  })
-}
-
-/* 生命周期 */
-onMounted(() => {
-  init()
-  featchGoodsTypeList()
-})
 </script>
 
 <style lang="scss" scoped></style>

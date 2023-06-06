@@ -125,6 +125,14 @@ export namespace InvCountingTask {
     countingUser: string
     countingUserId: string
   }
+
+  export interface TaskParams extends ReqPage {
+    no?: string
+    status?: boolean
+    createTimeBegin?: string
+    createTimeEnd?: string
+    createTime?: string[]
+  }
   export interface ResInvCountingTaskItem {
     countingCompleteTime: string | null
     countingUser: string
