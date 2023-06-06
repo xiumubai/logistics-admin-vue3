@@ -2,12 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
-<<<<<<< HEAD
  * @LastEditTime: 2023-06-06 17:03:29
-=======
- * @LastEditTime: 2023-06-06 10:58:31
->>>>>>> 6f6b85d (feat: 删除盘点单)
- * @Description: 实时库存
  */
 
 import http from '@/utils/http'
