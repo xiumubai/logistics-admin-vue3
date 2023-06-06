@@ -2,7 +2,8 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-06 17:04:43
+ * @LastEditTime: 2023-06-06 17:05:47
+ * @Description: 实时库存
  */
 
 import http from '@/utils/http'
@@ -27,22 +28,7 @@ export function getInvCountingList(params: ReqPage) {
  * @returns {*}
  */
 export function getInvCountingDetail(id: string) {
-<<<<<<< HEAD
   return http.get<any>(`${api_name}/show/${id}`)
-=======
-  console.log(id)
-
-  return http.get<InvCounting.ResInvCountingItem[]>(`${api_name}/show/${id}`)
-}
-
-/**
- * @description: 分配任务
- * @param {ReqPage} params
- * @returns {*}
- */
-export function assignInvCounting(data: any) {
-  return http.post<PageRes<any>>(`${api_name}/assign`, data)
->>>>>>> 670b763 (feat: 删除盘点单)
 }
 
 /**
