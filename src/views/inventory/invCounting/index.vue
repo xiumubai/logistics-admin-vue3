@@ -95,7 +95,7 @@ import {
   getGoodsNodeList,
   assignInvCountingTask,
   getUserByKeyword,
-  deleteGoodsById,
+  removeInvCounting,
   addShipper,
   updateShipper,
   findByDictCode,
@@ -214,7 +214,7 @@ const openDialog = async (
 // *根据id删除用户
 const handleDelete = async (row: GoodsInfo.ResGoodsInfoItem) => {
   await useAuth(hasAuth('btn.goodsInfo.remove'))
-  await useHandleData(deleteGoodsById, row.id, `删除${row.name}商品`)
+  await useHandleData(removeInvCounting, row.id, `删除`)
   proTable.value?.getTableList()
 }
 

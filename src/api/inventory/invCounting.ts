@@ -2,7 +2,7 @@
  * @Author: 朽木白
  * @Date: 2023-06-05 10:17:03
  * @LastEditors: 1547702880@@qq.com
- * @LastEditTime: 2023-06-06 09:54:35
+ * @LastEditTime: 2023-06-06 10:58:31
  * @Description: 实时库存
  */
 
@@ -29,4 +29,13 @@ export function getInvCountingList(params: ReqPage) {
  */
 export function getInvCountingDetail(id: string) {
   return http.get<any>(`${api_name}/show/${id}`)
+}
+
+/**
+ * @description: 详情
+ * @param {ReqPage} params
+ * @returns {*}
+ */
+export function removeInvCounting(id: string) {
+  return http.delete<any>(`${api_name}/remove/${id}`)
 }

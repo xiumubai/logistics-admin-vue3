@@ -105,6 +105,7 @@ export {
 export {
   getInvCountingList,
   getInvCountingDetail,
+  removeInvCounting,
 } from './inventory/invCounting'
 
 export {
