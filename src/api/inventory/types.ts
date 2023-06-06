@@ -170,3 +170,26 @@ export namespace InvMove {
     id: number
   }
 }
+
+export namespace InvMoveTask {
+  export interface MoveTaskItem {
+    id: number
+    createId: number
+    createName: string
+    updateId: number | null
+    updateName: string | null
+    createTime: string
+    updateTime: string
+    param: object
+    taskNo: string
+    invMoveNo: string
+    invMoveId: number
+    moveUserId: number
+    moveUser: string
+    moveCompleteTime: string | null
+    remarks: string | null
+    warehouseId: number
+    status: string
+    statusName: string
+  }
+}

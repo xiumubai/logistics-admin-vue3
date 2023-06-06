@@ -112,3 +112,4 @@ export {
   getInfoById,
   findByKeyWord,
 } from './inventory/invMove'
+export { getInvMoveTaskList, showMoveInfoById } from './inventory/invMoveTask'

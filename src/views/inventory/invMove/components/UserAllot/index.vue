@@ -3,10 +3,15 @@
  * @Autor: codeBo
  * @Date: 2023-06-06 11:15:14
  * @LastEditors: gjzxlihaibo@163.com
- * @LastEditTime: 2023-06-06 11:41:23
+ * @LastEditTime: 2023-06-06 15:40:20
 -->
 <template>
-  <el-dialog title="分配任务" v-model="visible" width="40%">
+  <el-dialog
+    title="分配任务"
+    v-model="visible"
+    width="40%"
+    :before-close="() => emit('close')"
+  >
     <el-form
       ref="assignUserForm"
       label-width="120px"

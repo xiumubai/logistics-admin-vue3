@@ -1,5 +1,10 @@
 <template>
-  <el-dialog title="添加/修改" v-model="visible" width="90%">
+  <el-dialog
+    :title="type === 'add' ? '添加' : '修改'"
+    v-model="visible"
+    width="90%"
+    :before-close="close"
+  >
     <div v-loading="loading">
       <el-card class="operate-container" shadow="never">
         <el-form
